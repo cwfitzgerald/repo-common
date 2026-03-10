@@ -5,7 +5,7 @@ This document describes how to publish a new release of `CRATE_NAME`.
 ## Prerequisites
 
 - Push access to the default branch
-- A crates.io API token with publish rights for `CRATE_NAME`
+- A crates.io API token with publish rights for all workspace crates
 - `gh` CLI installed and authenticated (for creating the GitHub release)
 
 ## Steps
@@ -87,8 +87,6 @@ jj git push
 ```bash
 cargo publish
 ```
-
-For workspaces with multiple publishable crates, publish in dependency order.
 
 ### 7. Create the GitHub release
 
