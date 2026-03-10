@@ -36,6 +36,7 @@ The `version` input is required. Uses `rustup toolchain install` with minimal pr
 CI should generally have 4 jobs: the main CI matrix, format, deny, and MSRV.
 
 - [ ] `CI_RUST_VERSION` env var pinning the tested Rust version
+- [ ] `CI_RUST_MSRV` env var pinning the MSRV
 - [ ] Uses `cwfitzgerald/repo-common/.github/actions/install-rust@trunk` to install Rust
 - [ ] Using `-Dwarnings` for both `RUSTFLAGS` and `RUSTDOCFLAGS`
 - [ ] **CI job** (platform matrix):
@@ -143,8 +144,8 @@ Apply every item in the checklist to the current repository:
 
 1. Create or update CI (.github/workflows/ci.yml) with the 4-job structure
    (ci matrix, format, deny, MSRV). Use the shared install-rust action. Pin
-   the Rust version via CI_RUST_VERSION. Use cargo-msrv or edition requirements
-   to determine the MSRV if not already set.
+   the Rust version via CI_RUST_VERSION and MSRV via CI_RUST_MSRV. Use
+   cargo-msrv or edition requirements to determine the MSRV if not already set.
 2. Create rust-toolchain.toml pinning the CI Rust version.
 3. Copy deny.toml from the template, then run `cargo deny --all-features check`
    and fix all failures by adjusting the allow-list and skip-list. Trim any
