@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [trunk]
+  pull_request:
+
+jobs:
+  install-rust:
+    name: Test Install Rust Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: ./.github/actions/install-rust
+        with:
+          version: "1.85"
+
+      - name: Verify installation
+        run: |
+          rustc --version
+          cargo --version
+          rustup show active-toolchain | grep '1.85'
+
+  renovate-config:
+    name: Validate Renovate Config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate default.json
+        run: npx --yes --package renovate -- renovate-config-validator default.json
