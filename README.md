@@ -34,12 +34,20 @@ The `version` input is required. Uses `rustup toolchain install` with minimal pr
 ### CI
 
 CI should generally have 4 jobs: the main CI matrix, format, deny, and MSRV.
+Keep existing workflow filenames, job IDs, and display names (`name:`) — GitHub
+uses display names to match required status checks in branch protection rules,
+so renaming them will break merge queues. When splitting a single job into
+multiple jobs, keep the original display name on whichever job replaces it and
+pick new names for the added jobs.
+Do not downgrade action versions (e.g. checkout@v6 to checkout@v4) without asking.
+Generally change as little as possible when updating things.
 
 - [ ] `CI_RUST_VERSION` env var pinning the tested Rust version
 - [ ] `CI_RUST_MSRV` env var pinning the MSRV
 - [ ] Uses `cwfitzgerald/repo-common/.github/actions/install-rust@trunk` to install Rust
 - [ ] Using `-Dwarnings` for both `RUSTFLAGS` and `RUSTDOCFLAGS`
 - [ ] **CI job** (platform matrix):
+  - [ ] `cargo-nextest` installed via `taiki-e/install-action@cargo-nextest`
   - [ ] `cargo clippy --all-targets`
   - [ ] `cargo build` (only needed for crates with native/FFI dependencies where linking matters)
   - [ ] `cargo doc --no-deps`
@@ -142,7 +150,7 @@ RELEASE.template.md, .github/actions/install-rust/action.yml).
 
 Apply every item in the checklist to the current repository:
 
-1. Create or update CI (.github/workflows/ci.yml) with the 4-job structure
+1. Create or update the CI workflow with the 4-job structure
    (ci matrix, format, deny, MSRV). Use the shared install-rust action. Pin
    the Rust version via CI_RUST_VERSION and MSRV via CI_RUST_MSRV. Use
    cargo-msrv or edition requirements to determine the MSRV if not already set.
