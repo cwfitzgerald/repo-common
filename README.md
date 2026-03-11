@@ -40,7 +40,8 @@ so renaming them will break merge queues. When splitting a single job into
 multiple jobs, keep the original display name on whichever job replaces it and
 pick new names for the added jobs.
 Do not downgrade action versions (e.g. checkout@v6 to checkout@v4) without asking.
-Generally change as little as possible when updating things.
+Make only minimal changes to CI to make things compliant. If there is a conflict, ask.
+Don't make major structural changes to existing CI.
 
 - [ ] `CI_RUST_VERSION` env var pinning the tested Rust version
 - [ ] `CI_RUST_MSRV` env var pinning the MSRV
@@ -48,7 +49,7 @@ Generally change as little as possible when updating things.
 - [ ] Using `-Dwarnings` for both `RUSTFLAGS` and `RUSTDOCFLAGS`
 - [ ] **CI job** (platform matrix):
   - [ ] `cargo-nextest` installed via `taiki-e/install-action@cargo-nextest`
-  - [ ] `cargo clippy --all-targets`
+  - [ ] `cargo clippy --all-features`
   - [ ] `cargo build` (only needed for crates with native/FFI dependencies where linking matters)
   - [ ] `cargo doc --no-deps`
   - [ ] `cargo nextest run`
