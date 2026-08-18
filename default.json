@@ -28,6 +28,11 @@
       "matchCurrentVersion": ">=1.0.0",
       "enabled": false,
       "description": "Minor and patch updates to x.y.z crates are compatible and handled by lockFileMaintenance"
+    },
+    {
+      "matchDepNames": ["rust"],
+      "enabled": false,
+      "description": "Do not suggest Rust toolchain updates"
     }
   ]
 }
